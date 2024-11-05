@@ -1,0 +1,9 @@
+services:
+
+  runway:
+    container_name: runway
+    image: runway
+    ports:
+      - "8000:8000"
+
+
