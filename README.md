@@ -8,7 +8,7 @@ docker build -t runway .
 docker compose up -d
 ```
 ## Test
-https://localhost:8000/
+http://localhost:8000/
 
 ## Swagger
-https://localhost:8000/docs
+http://localhost:8000/docs
