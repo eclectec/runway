@@ -8,6 +8,12 @@ fastapi = "*"
 uvicorn = "*"
 requests = "*"
 pydantic = "*"
+websockets = "*"
+redis = "*"
+confluent-kafka = "*"
+aioredis = "*"
+pyarango = "*"
+beautifulsoup4 = "*"
 
 [dev-packages]
 
