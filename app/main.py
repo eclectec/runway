@@ -76,18 +76,21 @@ def get_images(description: str):
     
     return JSONResponse(content=jsonable_encoder(image_list))                   
 
-@app.websocket("/redis/rumble")
-async def rumble_socket(websocket: WebSocket, redis: aioredis.Redis = Depends(get_redis)):
+@app.websocket("/redis/{topic}")
+async def rumble_socket(topic: str, websocket: WebSocket, redis: aioredis.Redis = Depends(get_redis)):
     await websocket.accept()
     consumer = redis.pubsub()
 
-    await consumer.subscribe("rumble")
+    await consumer.subscribe(topic)
 
     while True:
         message = await consumer.get_message(ignore_subscribe_messages=True)
 
         if message is not None and 'data' in message:
-            await websocket.send_json(to_geo_json(json.loads(message['data'])))
+            if(topic == "traffic"):
+                await websocket.send_json(to_geo_json(json.loads(message['data'])))
+            else:
+                await websocket.send_json(message['data'])
         else:
             await asyncio.sleep(1)
 
